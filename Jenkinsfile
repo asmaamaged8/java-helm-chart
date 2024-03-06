@@ -5,7 +5,7 @@ pipeline {
     stage("Clone code from GitHub") {
             steps {
                 script {
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/devopshint/Deploy-Java-helm-chart-on-AWS-EKS-using-Jenkins-Pipeline/']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/asmaamaged8/java-helm-chart.git']])
                 }
             }
         }
@@ -14,7 +14,7 @@ pipeline {
      stage('Build Node JS Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t devopshint/java-1.0 .'
+                  sh 'docker build -t asmaamaged/java-1.0 .'
                 }
             }
         }
@@ -23,10 +23,10 @@ pipeline {
         stage('Deploy Docker Image to DockerHub') {
             steps {
                 script {
-                 withCredentials([string(credentialsId: 'devopshint', variable: 'devopshint')]) {
-                    sh 'docker login -u devopshint -p ${devopshint}'
+                 withCredentials([string(credentialsId: 'asmaamaged', variable: 'asmaamaged')]) {
+                    sh 'docker login -u asmaamaged -p ${asmaamaged}'
             }
-            sh 'docker push devopshint/java-1.0'
+            sh 'docker push asmaamaged/java-1.0'
         }
             }   
         }
